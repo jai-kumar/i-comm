@@ -5,22 +5,21 @@ import Home from './Home';
 import Checkout from './Checkout';
 import Payment from './Payment';
 import Login from './Login';
+import Orders from './Orders';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { auth } from './firebase';
 import { useStateValue } from './StateProvider';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from "@stripe/react-stripe-js";
 
-const promise = loadStripe(
-  'pk_test_51IM24QLpemLCvwOTy2y3nGyuOaDYuZEuYTWcuz3crQQGHsljUxXbSRTGEN6dP0hqsp98czl7wJI0RVicSPVr5tpC00ekhegzV6'
-);
+const promise = loadStripe('pk_test_51IMGI5HnVnCynbirm7VQmkEon7NsrS280ojR3ZMQatOZeAvGm62NdwakOZ8rN5IjPLYN94dKfzw0CES2DwMIdSSU00KTuyviH1');
 
 function App() {
   const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
     auth.onAuthStateChanged(authUser => {
-      console.log('THE USER IS ->>>', authUser);
+      // console.log('THE USER IS ->>>', authUser);
       if(authUser) {
         dispatch({
           type: 'SET_USER',
@@ -39,7 +38,7 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-        <Route path="/payment">
+          <Route path="/payment">
             <Header />
             <Elements stripe={promise}>
               <Payment/>
@@ -51,6 +50,10 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/orders">
+            <Header />
+            <Orders />
           </Route>
           <Route path="/">
             <Header />

@@ -28,10 +28,10 @@ function Payment() {
         method: 'POST',
         url: `/payments/create?total=${(getBasketTotal(basket) * 100)}`
       })
-      // .then(response => setClientSecret(response.data.clientSecret))
-      // .catch(e => console.error(e));
+      .then(response => setClientSecret(response.data.clientSecret))
+      .catch(e => console.error(e));
 
-      setClientSecret(response.data.clientSecret);
+      // setClientSecret(response.data.clientSecret);
     }
     console.log('user: ',user);
     getClientSecret();
@@ -47,7 +47,9 @@ function Payment() {
       payment_method: {
         card: elements.getElement(CardElement)
       }
-    }).then(({ paymentIntent }) => {//
+    }).then((res) => {//
+      console.log('res:',res);
+      let paymentIntent = res.paymentIntent;
       // paymentIntent  is payment confirmation
       db.collection('users')
       .doc(user?.uid)

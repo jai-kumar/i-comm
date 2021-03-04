@@ -1,6 +1,7 @@
 import React from 'react'
 import './Home.css';
 import Product from './Product';
+import ProductsList from "./components/ProductsList";
 
 function Home() {
   return (
@@ -61,6 +62,10 @@ function Home() {
             rating={3}
             title="OnePlus Y Series 80 cm (32 inches) HD Ready LED Smart Android TV 32Y1 (Black) (2020 Model)"
           />
+        </div>
+
+        <div className="home__productList">
+          <ProductsList />
         </div>
       </div>
     </div>

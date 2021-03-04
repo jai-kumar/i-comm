@@ -3,7 +3,7 @@ const functions = require("firebase-functions");
 const express = require('express');
 const cors = require('cors');
 const stripe = require('stripe')('sk_test_51IMGI5HnVnCynbiruG0z2jrPTU6c0Z5BDVG8kS26SfRw968v7N81dDXgNgStnFAJiQgAjmSIOwZoXcVLi7pY4v4l00VEsDbUHu');
-
+const utility = require('./utility');
 // API
 
 // App Config
@@ -15,6 +15,13 @@ app.use(express.json());
 
 // API Routes
 app.get('/', (request, response) => response.status(200).send('hello world'));
+
+app.get('/products', async (request, response) => {
+  let allProducts = await utility.getAllProducts();
+  response.status(200).send({
+    products: allProducts || []
+  })
+});
 
 app.post('/payments/create', async (request, response) => {
   const total = request.query.total;
